@@ -1,0 +1,311 @@
+/* Responsive navigation styles for Portfolio REBuild */
+:root{
+    --bg: #0f1724;
+    --accent: #06b6d4; /* teal */
+    --muted: #94a3b8;
+    --nav-height: 64px;
+}
+*{box-sizing:border-box}
+/* Prevent accidental horizontal scrolling and ensure full-bleed elements don't exceed the viewport */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Make media scale within their containers to avoid overflow */
+img, picture, video, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Allow flex/grid children to shrink on small viewports (prevents overflow) */
+.nav-list, .footer-inner, .features-grid, .about, .list-of-services, .feature, .text-content {
+    min-width: 0;
+}
+
+/* Break long words/URLs so they don't force horizontal scrolling */
+.feature, .text-content, .footer-links, .footer-contact {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+body{
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:linear-gradient(180deg,#071226 0%, #0f1724 100%);
+    color:#e6eef8;
+}
+.long-nav{
+    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    overflow: hidden; /* keep nav internals from creating horizontal scroll */
+}
+header.long-nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    padding:0 1rem;
+    height:var(--nav-height);
+}
+.brand{
+    color:var(--accent);
+    font-weight:700;
+    text-decoration:none;
+    font-size:1.05rem;
+}
+.icon{
+    display:none; /* hidden on desktop */
+    background:transparent;
+    color:var(--muted);
+    border:0;
+    font-size:1.5rem;
+    cursor:pointer;
+}
+/* Ensure the menu button is above other elements and clickable */
+.icon{position:relative;z-index:9001}
+.long-nav{position:relative;z-index:9000}
+.nav-list{z-index:9000}
+.nav-list{
+    display:flex;
+}
+.navs{flex-wrap:wrap}
+.brand{flex-shrink:1; min-width:0}
+.navs{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    gap:1rem;
+}
+.navs li a{
+    display:inline-block;
+    padding:0.5rem 0.75rem;
+    color:var(--muted);
+    text-decoration:none;
+    border-radius:6px;
+    transition:all .15s ease;
+}
+.navs li a:hover,
+.navs li a:focus{
+    background:rgba(255,255,255,0.03);
+    color:var(--accent);
+    transform:translateY(-1px);
+}
+/* Active link style example */
+.navs li a.active{
+    color:#fff;
+    background:linear-gradient(90deg, rgba(6,182,212,0.12), rgba(6,182,212,0.06));
+}
+/* Mobile styles */
+@media (max-width: 780px){
+    .icon{display:inline-flex}
+    .nav-list{
+        position:fixed;
+        top:var(--nav-height);
+        right:0;
+        width:260px;
+        height:calc(100% - var(--nav-height));
+        background:linear-gradient(180deg, rgba(8,14,22,0.98), rgba(6,9,15,0.96));
+        padding:1rem;
+        transform:translateX(100%);
+        transition:transform .25s cubic-bezier(.2,.9,.3,1);
+        box-shadow:-20px 40px 60px rgba(2,6,23,0.6);
+        display:block;
+    }
+    .nav-list.open{transform:translateX(0%)}
+    .navs{flex-direction:column; gap:0.25rem}
+    .navs li a{padding:0.75rem 1rem; font-size:1rem}
+    header.long-nav{padding:0 0.75rem}
+}
+
+/* small accessibility helpers */
+.icon:focus{outline:2px solid rgba(6,182,212,0.18); outline-offset:3px}
+
+/* Small demo page content spacing */
+main{padding:2rem}
+
+/* Utility: hide the large desktop nav on very small screens if desired */
+@media (max-width:420px){
+    .nav-list{width:100%;}
+}
+
+/* About page layout */
+.about{
+    max-width:1100px;
+    margin:2.5rem auto;
+    display:grid;
+    grid-template-columns: 360px 1fr;
+    gap:2rem;
+    align-items:center;
+    padding:1rem;
+}
+.about .img{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+.about .img img{
+    width:100%;
+    max-width:320px;
+    height:auto;
+    border-radius:12px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    border: 1px solid rgba(255,255,255,0.04);
+    object-fit:cover;
+}
+.text-content h1{
+    margin-top:0;
+    color: #fff;
+}
+.text-content p{
+    color:var(--muted);
+    line-height:1.6;
+    font-size:1.05rem;
+}
+
+@media (max-width:880px){
+    .about{grid-template-columns: 1fr; gap:1rem; margin:1.25rem}
+    .about .img{order:0}
+    .text-content{padding:0}
+}
+
+/* Features / Services cards */
+.features{
+    max-width:1100px;
+    margin:2.5rem auto;
+    padding:1rem;
+}
+.features h1{color:#fff; margin-bottom:0.25rem}
+.features .intro{color:var(--muted); margin-top:0}
+.features-grid{
+    list-style:none; padding:0; margin:1.25rem 0 0 0;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1rem;
+}
+.feature{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    padding:1rem;
+    border-radius:10px;
+    color: #e6eef8;
+    box-shadow: 0 6px 20px rgba(2,6,23,0.45);
+    transition:transform .18s ease, box-shadow .18s ease;
+}
+.feature:hover{transform:translateY(-6px); box-shadow:0 14px 36px rgba(2,6,23,0.6);}
+.feature:focus{outline:2px solid rgba(6,182,212,0.12); outline-offset:3px}
+@media (max-width: 780px){
+    #mainNav {
+        position: fixed;
+        top: var(--nav-height);
+        right: 0;
+        width: 260px;
+        height: calc(100% - var(--nav-height));
+        transform: translateX(100%);
+        transition: transform .25s cubic-bezier(.2,.9,.3,1);
+    }
+
+    #mainNav.open {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width:980px){
+    .features-grid{grid-template-columns: repeat(2, 1fr)}
+}
+@media (max-width:560px){
+    .features-grid{grid-template-columns: 1fr}
+}
+
+/* Services page — reuse features grid + slight variations */
+.list-of-services{
+    max-width:1100px;
+    margin:2.5rem auto;
+    padding:1rem;
+}
+.list-of-services h1{color:#fff; margin-bottom:0.25rem}
+.list-of-services .intro{color:var(--muted); margin-top:0}
+.list-of-services .features-grid{
+    list-style:none; padding:0; margin:1.25rem 0 0 0;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1rem;
+}
+.list-of-services .feature{
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    padding:1rem;
+    border-radius:10px;
+    color: #e6eef8;
+    box-shadow: 0 6px 20px rgba(2,6,23,0.45);
+    transition:transform .18s ease, box-shadow .18s ease;
+    text-transform:capitalize;
+}
+.list-of-services .feature:hover{transform:translateY(-6px); box-shadow:0 14px 36px rgba(2,6,23,0.6);}
+
+@media (max-width:980px){
+    .list-of-services .features-grid{grid-template-columns: repeat(2, 1fr)}
+}
+@media (max-width:560px){
+    .list-of-services .features-grid{grid-template-columns: 1fr}
+}
+
+/* Projects page styles */
+.projects{max-width:1100px;margin:2.5rem auto;padding:1rem}
+.projects h1{color:#fff}
+.projects .intro{color:var(--muted)}
+.projects-grid{list-style:none;margin:1rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.project-card{display:block;padding:1rem;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);color:inherit;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+.project-card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(2,6,23,0.6)}
+.project-card .thumb{font-size:2rem;width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02);margin-bottom:0.5rem}
+.project-card h3{margin:0 0 0.35rem;color:#fff}
+.project-card p{margin:0;color:var(--muted);font-size:0.95rem}
+
+@media (max-width:980px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.projects-grid{grid-template-columns:1fr}}
+
+/* Contact page styles */
+.contact-page{max-width:1100px;margin:2.5rem auto;padding:1rem}
+.contact-page h1{color:#fff}
+.contact-page .intro{color:var(--muted)}
+.contact-grid{display:grid;grid-template-columns:1fr 320px;gap:2rem;margin-top:1rem}
+.contact-form{display:flex;flex-direction:column;gap:0.5rem}
+.contact-form input,.contact-form textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:0.6rem;border-radius:8px;color:inherit}
+.contact-form label{font-size:0.95rem;color:var(--muted)}
+.contact-form .btn{background:var(--accent);border:0;color:#032028;padding:0.6rem 0.9rem;border-radius:8px;cursor:pointer}
+.contact-info{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:1rem;border-radius:10px}
+.contact-info h3{margin-top:0;color:#fff}
+.socials ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem}
+.socials a{display:inline-flex;gap:0.5rem;align-items:center;color:var(--muted);text-decoration:none}
+.socials a svg{opacity:0.9}
+
+@media (max-width:880px){.contact-grid{grid-template-columns:1fr}}
+
+
+/* Footer styles */
+.site-footer{
+    margin-top:3rem;
+    background:linear-gradient(180deg, rgba(5,8,12,0.98), rgba(6,9,15,0.96));
+    color:var(--muted);
+    border-top:1px solid rgba(255,255,255,0.03);
+    padding:2rem 1rem;
+}
+.site-footer .footer-inner{
+    max-width:1100px; margin:0 auto; display:flex; gap:2rem; align-items:flex-start; justify-content:space-between;
+}
+.site-footer .footer-inner > * {min-width:0}
+.footer-brand .tag{color:var(--muted); margin:0.25rem 0 0}
+.footer-links ul{list-style:none;padding:0;margin:0}
+.footer-links ul li{margin:0.35rem 0}
+.footer-links a, .footer-contact a{color:var(--muted); text-decoration:none}
+.footer-links a:hover, .footer-contact a:hover{color:var(--accent)}
+.footer-bottom{max-width:1100px;margin:1.25rem auto 0;display:flex;align-items:center;justify-content:space-between;padding:0 1rem}
+.footer-bottom small{color:#9fb6c6}
+.back-to-top{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:0.35rem 0.6rem;border-radius:6px;cursor:pointer}
+.back-to-top:hover{background:rgba(255,255,255,0.02);color:var(--accent)}
+
+@media (max-width:780px){
+    .site-footer .footer-inner{flex-direction:column;gap:1rem}
+    .footer-bottom{flex-direction:column;gap:0.5rem;align-items:flex-start}
+}
