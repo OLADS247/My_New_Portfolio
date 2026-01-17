@@ -38,7 +38,7 @@ body{
     background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(255,255,255,0.04);
-    overflow: hidden; /* keep nav internals from creating horizontal scroll */
+    overflow: visible; /* allow fixed-position mobile nav to be visible */
 }
 header.long-nav{
     display:flex;
@@ -106,18 +106,29 @@ header.long-nav{
         right:0;
         width:260px;
         height:calc(100% - var(--nav-height));
-        background:linear-gradient(180deg, rgba(8,14,22,0.98), rgba(6,9,15,0.96));
-        padding:1rem;
+        /* stronger, solid dark background so the menu is obvious */
+        background: linear-gradient(180deg, rgba(4,10,16,0.96), rgba(6,9,15,0.98));
+        padding:1.25rem;
         transform:translateX(100%);
         transition:transform .25s cubic-bezier(.2,.9,.3,1);
         box-shadow:-20px 40px 60px rgba(2,6,23,0.6);
         display:block;
+        border-left: 1px solid rgba(255,255,255,0.03);
     }
     .nav-list.open{transform:translateX(0%)}
     .navs{flex-direction:column; gap:0.25rem}
     .navs li a{padding:0.75rem 1rem; font-size:1rem}
     header.long-nav{padding:0 0.75rem}
 }
+
+/* style the menu toggle so it reads clearly against content */
+.icon{
+    background: rgba(255,255,255,0.02);
+    padding: 0.35rem 0.5rem;
+    border-radius: 8px;
+    display:inline-flex; align-items:center; justify-content:center;
+}
+.icon:hover{background: rgba(255,255,255,0.04); color: var(--accent)}
 
 /* small accessibility helpers */
 .icon:focus{outline:2px solid rgba(6,182,212,0.18); outline-offset:3px}
@@ -195,21 +206,7 @@ main{padding:2rem}
 }
 .feature:hover{transform:translateY(-6px); box-shadow:0 14px 36px rgba(2,6,23,0.6);}
 .feature:focus{outline:2px solid rgba(6,182,212,0.12); outline-offset:3px}
-@media (max-width: 780px){
-    #mainNav {
-        position: fixed;
-        top: var(--nav-height);
-        right: 0;
-        width: 260px;
-        height: calc(100% - var(--nav-height));
-        transform: translateX(100%);
-        transition: transform .25s cubic-bezier(.2,.9,.3,1);
-    }
-
-    #mainNav.open {
-        transform: translateX(0);
-    }
-}
+/* NOTE: mobile nav is defined earlier targeting .nav-list; duplicate #mainNav rules removed to avoid conflicts */
 
 @media (max-width:980px){
     .features-grid{grid-template-columns: repeat(2, 1fr)}
